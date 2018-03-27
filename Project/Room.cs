@@ -13,15 +13,12 @@ namespace CastleGrimtol.Project
     {
         Name = name;
         Description = description;
+        Items = new List<Item>();
         Directions = new Dictionary<string, Room>();
     }
 
     public void UseItem(Item item)
     {
-    }
-    public void Look()
-    {
-        System.Console.WriteLine($"{this.Description}");
     }
   }
 }

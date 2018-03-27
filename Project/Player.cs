@@ -18,7 +18,7 @@ namespace CastleGrimtol.Project
     public void InventoryCheck(){
         for (int i = 0; i < this.Inventory.Count; i++)
         {
-        System.Console.WriteLine($"{this.Inventory[i]}");
+        System.Console.WriteLine($"{i}. {this.Inventory[i].Name}");
         }
     }
   

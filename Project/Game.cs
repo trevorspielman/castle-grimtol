@@ -7,12 +7,14 @@ namespace CastleGrimtol.Project
   {
     public Room CurrentRoom { get; set; }
     public Player CurrentPlayer { get; set; }
+    public bool PrincessFree { get; set; }
 
     // Constructor
     public Game()
     {
       CurrentRoom = SetupRooms();
       CurrentPlayer = SetupPlayer();
+      PrincessFree = false;
     }
 
 
@@ -35,7 +37,8 @@ namespace CastleGrimtol.Project
       Room hallway = new Room("Hallway", "You find yourself in a small hall there doesnt appear to be anything of interest here. There are three doors. Go north, east, or south.");
       Room courtyard = new Room("Castle Courtyard", @"
       You step into the large castle courtyard there is a flowing fountain in the middle of the grounds.
-      A few guards patrolling the area. Think quick, should you hide yourself in the fountain or disguise yourself?");
+      A few guards patrolling the area. Think quick, should you hide yourself in the fountain or disguise yourself?
+      As your eyes dart around in a panic, do notice to the south a likely ESCAPE route");
       Room barracks = new Room("Barracks", @"
       You see a room with several sleeping guards, The room smells of sweaty men. The bed closest to you is empty and there are several uniforms tossed about. 
       There is a spare UNIFORM on a bed. Your only exit is back the way you came (west) or south to the courtyard");
@@ -55,6 +58,10 @@ namespace CastleGrimtol.Project
       Room dungeon = new Room("Dungeon", @"
       As you descend the stairs to the dungeon you notice a harsh chill to the air.
       Landing a the base of the stairs you see what the remains of a previous prisoner.");
+      Room escape = new Room("Escape", @"
+      You've Escaped, and better yet, you've done it with the princess!!
+      Your people can flee across the sea.
+      Now is the time to rebuild and plot your revenge. Play again?");
 
 
       //Hallway directions
@@ -66,13 +73,14 @@ namespace CastleGrimtol.Project
       //cortyard directions
       courtyard.Directions.Add("north", hallway);
       courtyard.Directions.Add("fountain", fountain);
+      courtyard.Directions.Add("guard", barracks);
+      courtyard.Directions.Add("south", escape);
 
 
       //barracks directions
       barracks.Directions.Add("west", hallway);
       barracks.Directions.Add("south", courtyard);
       barracks.Directions.Add("north", capitansQuarters);
-      barracks.Directions.Add("guards", barracks);
 
       //Capitans Quarters directions
       capitansQuarters.Directions.Add("south", barracks);
@@ -85,6 +93,9 @@ namespace CastleGrimtol.Project
 
       //fountain directions
       fountain.Directions.Add("out", courtyard);
+
+      //escape directions
+      escape.Directions.Add("north", courtyard);
 
 
       //Item Creation
@@ -201,6 +212,7 @@ _ 'reset'
             Console.WriteLine("Wrong Way Dingus. Try again");
             break;
           }
+          Console.Clear();
           CurrentRoom = CurrentRoom.Directions[userComm];
           break;
       }

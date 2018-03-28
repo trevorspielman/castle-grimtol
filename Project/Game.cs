@@ -241,23 +241,7 @@ _ 'reset'
           TakeItem();
           break;
         case "use item":
-          System.Console.WriteLine("Which Item?");
-          for (int i = 0; i < CurrentPlayer.Inventory.Count; i++)
-          {
-            System.Console.WriteLine($"{i + 1}. {CurrentPlayer.Inventory[i].Name}");
-          }
-          int chosenItem;
-          string cI = Console.ReadLine();
-          int.TryParse(cI, out chosenItem);
-          if (chosenItem > -1 && chosenItem <= CurrentPlayer.Inventory.Count)
-          {
-            UseItem(CurrentPlayer.Inventory[chosenItem - 1].Name);
-          }
-          else
-          {
-            System.Console.WriteLine(@"
-            |+| Please make a valid selection |+|");
-          }
+          UseItem(CurrentPlayer.AssignItem());
           break;
         case "quit":
           System.Environment.Exit(1);

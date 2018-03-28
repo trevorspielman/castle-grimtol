@@ -79,19 +79,23 @@ You find yourself in a {currentGame.CurrentRoom.Name.ToUpper()}
             |+| The guards take you as one of your own. They're heading back to the Barracks with you |+|");
           }
         }
-        if (currentGame.CurrentRoom.Name == "Fountain" && currentGame.CurrentPlayer.ActiveItem != "Odd Bamboo Straw")
+        if (currentGame.CurrentRoom.Name == "Fountain")
         {
-          System.Console.WriteLine(@"
+          currentGame.CurrentPlayer.StrawCheck();
+          if (!currentGame.CurrentPlayer.HasStraw)
+          {
+            System.Console.WriteLine(@"
           |+| You forgot you can't swim. You die and the rescue Fails. Try again? (Y/N) |+|");
-          string died = Console.ReadLine();
-          if (died[0] == 'n')
-          {
-            playing = false;
-          }
-          else
-          {
-            Console.Clear();
-            currentGame.Reset();
+            string died = Console.ReadLine();
+            if (died[0] == 'n')
+            {
+              playing = false;
+            }
+            else
+            {
+              Console.Clear();
+              currentGame.Reset();
+            }
           }
         }
         //Win scenario

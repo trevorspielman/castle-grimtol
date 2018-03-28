@@ -72,7 +72,7 @@ System.Console.WriteLine(currentGame.CurrentRoom.Description);
         //Disguising yourself or dying in the fountain as you avoid the guards
         if (currentGame.CurrentRoom.Name == "Castle Courtyard")
         {
-          if (currentGame.CurrentPlayer.ActiveItem.Equals("Guard Uniform"))
+          if (currentGame.CurrentPlayer.ActiveItem.Equals("Guard Uniform") && !currentGame.PrincessFree)
           {
             currentGame.CheckStatement("guard");
             Console.WriteLine(@"

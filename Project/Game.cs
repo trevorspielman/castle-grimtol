@@ -19,11 +19,10 @@ namespace CastleGrimtol.Project
 
 
 
-
-
     //Creating the Player
     public Player SetupPlayer()
     {
+      Console.Clear();
       System.Console.WriteLine("Welcome Brave Warrior, what is your Name?");
       string playerName = Console.ReadLine();
       Player player1 = new Player(playerName, 0);
@@ -37,7 +36,7 @@ namespace CastleGrimtol.Project
       Room hallway = new Room("Hallway", "You find yourself in a small hall there doesnt appear to be anything of interest here. There are three doors. Go north, east, or south.");
       Room courtyard = new Room("Castle Courtyard", @"
       You step into the large castle courtyard there is a flowing fountain in the middle of the grounds.
-      A few guards patrolling the area. Think quick, should you hide yourself in the fountain or disguise yourself?
+      A few guards patrolling the area and there are a few loose bricks. Think quick, should you hide yourself in the fountain or disguise yourself?
       As your eyes dart around in a panic, do notice to the south a likely ESCAPE route");
       Room barracks = new Room("Barracks", @"
       You see a room with several sleeping guards, The room smells of sweaty men. The bed closest to you is empty and there are several uniforms tossed about. 
@@ -49,7 +48,8 @@ namespace CastleGrimtol.Project
       Dumbfounded you mutter an incoherent response. Becoming more enraged the Dark Lord complains that you
       just ruined his concentration and he will now have to start the ritual over...
       Quickly striding towards you he smirks at least I know have a sacrificial volunteer.
-      Plunging his jewel encrusted dagger into your heart your world slowly fades away.");
+      Plunging his jewel encrusted dagger into your heart your world slowly fades away.
+      ");
       Room fountain = new Room("Fountain", "You dove into the fountain to escape the oncomming guards. However, there's one issue...");
       Room capitansQuarters = new Room("Capitans Quarters", @"
       As you approach the captains Quarters you swallow hard and notice your lips are dry,
@@ -57,11 +57,13 @@ namespace CastleGrimtol.Project
       There doesn't seem to be anything of use here, and yet, maybe you should LOOK a little closer.");
       Room dungeon = new Room("Dungeon", @"
       As you descend the stairs to the dungeon you notice a harsh chill to the air.
-      Landing a the base of the stairs you see what the remains of a previous prisoner.");
+      Landing a the base of the stairs you see what the remains of a previous prisoner.
+      A GRATE leads to the sewers, might make for a quick escape route...");
       Room escape = new Room("Escape", @"
       You've Escaped, and better yet, you've done it with the princess!!
       Your people can flee across the sea.
       Now is the time to rebuild and plot your revenge. Play again?");
+      Room sewer = new Room("Sewer", "The sewer grate was actually a MIMIC... DOH!");
 
 
       //Hallway directions
@@ -87,6 +89,7 @@ namespace CastleGrimtol.Project
 
       //Dungeon directions
       dungeon.Directions.Add("east", hallway);
+      dungeon.Directions.Add("south", sewer);
 
       //throne room directions
       throneRoom.Directions.Add("south", hallway);
@@ -117,6 +120,9 @@ namespace CastleGrimtol.Project
 
     public void TakeItem()
     {
+        if(CurrentRoom.Items.Count > 0){
+
+
       Console.WriteLine("Which Item?");
       for (int i = 0; i < CurrentRoom.Items.Count; i++)
       {
@@ -126,19 +132,30 @@ namespace CastleGrimtol.Project
       string tI = Console.ReadLine();
       int.TryParse(tI, out takenItem);
       CurrentPlayer.Inventory.Add(CurrentRoom.Items[takenItem - 1]);
-      System.Console.WriteLine($"You've added the {CurrentRoom.Items[takenItem - 1].Name} to your Inventory");
+      System.Console.WriteLine($@"
+      |+| You've added the {CurrentRoom.Items[takenItem - 1].Name} to your Inventory |+|");
+      CurrentRoom.Items.RemoveAt((takenItem - 1));
+        }
+        else{
+            System.Console.WriteLine(@"
+      |+| There are No Items in this room. |+|");
+        }
     }
 
     public void UseItem(string itemName)
     {
       CurrentPlayer.ActiveItem = itemName;
+      System.Console.WriteLine($@"
+      |+| You've equipped the {CurrentPlayer.ActiveItem} |+|");
     }
 
     public void Look()
     {
+      Console.Clear();
       if (CurrentRoom.Name == "Capitans Quarters")
       {
-        Console.WriteLine("You look a little harder and find a KEY in a bottom desk drawer. This could come in handy!");
+        Console.WriteLine(@"
+        |+| You look a little harder and find a KEY in a bottom desk drawer. This could come in handy! |+|");
       }
       System.Console.WriteLine($"{CurrentRoom.Description}");
     }
@@ -146,22 +163,32 @@ namespace CastleGrimtol.Project
     // Writing the Help Menu
     public static void Help()
     {
-      System.Console.WriteLine(@"
--	`go <direction>`
+      Console.Clear();
+            System.Console.WriteLine(@"
+************************************************************************************************************
+`direction`
 	- Moves your player from room to room.
 	- Directions: `north`, `south`, `east`, `west`
-- `take <item>`
-	- If an item can be picked up this command will put the item in your inventory
+    - Additional directions may be available based on the situation.
+************************************************************************************************************
+- `take item`
+	- If there is an item that can be picked up, this command will bring up a menu of takeable items.
+************************************************************************************************************
 - `use <item>`
-	- Uses an item from your inventory or in the room
+	- This command will bring up a menu of usable items. You can only have one active item equipped.
+************************************************************************************************************
 - `look`
-	- Displays the Description of the current room
+	- Displays the Description of the current room, sometimes gives you a better look.
+************************************************************************************************************
 - `inventory`
 	- This command will list of the current items in your inventory
+************************************************************************************************************
 _ 'reset'
     - If the adventure becomes too hard, this command will take you back to the beginning.
+************************************************************************************************************
 - 'quit'
     - quit out of the application.
+************************************************************************************************************
         ");
     }
 
@@ -209,7 +236,8 @@ _ 'reset'
         default:
           if (!CurrentRoom.Directions.ContainsKey(userComm))
           {
-            Console.WriteLine("Wrong Way Dingus. Try again");
+            Console.WriteLine(@"
+            |+| Wrong Way Dingus. Try again |+|");
             break;
           }
           Console.Clear();

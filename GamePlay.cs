@@ -13,16 +13,18 @@ namespace CastleGrimtol
       //Conditions for default commands: Help, reset, inventory
       Console.Clear();
       System.Console.WriteLine(@"
-          |+| Brave Young Warrior our forces are failing and the enemy grows stronger everyday.  |+| 
-          |+| I fear if we don't act now there will be no hope for our people.                   |+| 
-          |+| These dark times have left us with one final course of action.                     |+| 
-          |+| We must rescue our princess and flee accross the sea...                            |+| 
-          |+| Our sources have identified a small tunnel that leads into the rear of the castle. |+| 
+          |+| Brave Young Warrior our forces are failing and the enemy grows stronger everyday.     |+| 
+          |+| I fear if we don't act now there will be no hope for our people.                      |+| 
+          |+| These dark times have left us with one final course of action.                        |+| 
+          |+| We must rescue our princess and flee accross the sea...                               |+| 
+          |+| Our sources have identified a small tunnel that leads into the rear of the castle.    |+| 
+          |+| Your mission is to get in, save the princes and cause any damage you can while there. |+| 
         ");
       bool playing = true;
       while (playing)
       {
         //Starting room
+        System.Console.WriteLine($"|+| {currentGame.CurrentPlayer.Name} | Score: {currentGame.CurrentPlayer.Score} |+| ");
         System.Console.WriteLine($@"
 You find yourself in a {currentGame.CurrentRoom.Name.ToUpper()}
 ************************************************************************************************************");

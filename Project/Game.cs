@@ -34,13 +34,17 @@ namespace CastleGrimtol.Project
     public Room SetupRooms()
     {
       Room hallway = new Room("Hallway", "You find yourself in a small hall there doesnt appear to be anything of interest here. There are three doors. Go north, east, or south.");
+
       Room courtyard = new Room("Castle Courtyard", @"
       You step into the large castle courtyard there is a flowing fountain in the middle of the grounds.
-      A few guards patrolling the area and there are a few loose bricks. Think quick, should you hide yourself in the fountain or disguise yourself?
+      A few guards patrolling the area and there are a few loose bricks with some repair tools laying around. 
+      The guards see you! Think quick, should you hide yourself in the fountain or disguise yourself?
       As your eyes dart around in a panic, do notice to the south a likely ESCAPE route");
+
       Room barracks = new Room("Barracks", @"
       You see a room with several sleeping guards, The room smells of sweaty men. The bed closest to you is empty and there are several uniforms tossed about. 
       There is a spare UNIFORM on a bed. Your only exit is back the way you came (west) or south to the courtyard");
+
       Room throneRoom = new Room("Throne Room", @"
       As you unlock the door and swing it wide you see an enormous hall stretching out before you.
       At the opposite end of the hall sitting on his throne you see the dark lord.
@@ -50,32 +54,54 @@ namespace CastleGrimtol.Project
       Quickly striding towards you he smirks at least I know have a sacrificial volunteer.
       Plunging his jewel encrusted dagger into your heart your world slowly fades away.
       ");
+
       Room fountain = new Room("Fountain", @"
       You dove into the fountain to escape the oncomming guards.
       Good thing you have your bamboo straw. You'd drown otherwise!!");
+
       Room capitansQuarters = new Room("Capitans Quarters", @"
       As you approach the captains Quarters you swallow hard and notice your lips are dry,
       Stepping into the room you see a few small tables and maps of the countryside sprawled out.
       There doesn't seem to be anything of use here, and yet, maybe you should LOOK a little closer.");
+
       Room dungeon = new Room("Dungeon", @"
       As you descend the stairs to the dungeon you notice a harsh chill to the air.
       Landing a the base of the stairs you see what the remains of a previous prisoner.
       A GRATE leads to the sewers, might make for a quick escape route...");
+
       Room escape = new Room("Escape", @"
       You've Escaped, and better yet, you've done it with the princess!!
       Your people can flee across the sea.
       Now is the time to rebuild and plot your revenge. Play again?");
+
       Room sewer = new Room("Sewer", "The sewer grate was actually a MIMIC... DOH!");
+
       Room guardHouse = new Room("Guard House", @"
       Pushing open the door of the guard room you look around and notice the room is empty.
       There are a few small tools in the corner and a chair propped against the west wall near a door that likely leads to the dungeon.");
 
+      Room storeRoom = new Room("Store Room", @"
+      Large store room with weapons, armor, horse tack and other various implements of war.
+      It'd be a shame if all this nice equipment were broken...");
+
+      Room kitchen = new Room("Kitchen", @"
+      Large castle kitche, the smells are amazing, but potentially you could 
+      poison it if only you had some poison...");
+
+      Room northHallway = new Room("North Hallway", "Just more of the same ol' hallway...");
+
+
+
 
       //Hallway directions
-      hallway.Directions.Add("north", throneRoom);
+      hallway.Directions.Add("north", northHallway);
       hallway.Directions.Add("south", courtyard);
       hallway.Directions.Add("east", barracks);
       hallway.Directions.Add("west", guardHouse);
+
+      //North Hallway directions
+      northHallway.Directions.Add("north", throneRoom);
+      northHallway.Directions.Add("west", kitchen);
 
       //cortyard directions
       courtyard.Directions.Add("north", hallway);
@@ -85,9 +111,10 @@ namespace CastleGrimtol.Project
 
 
       //barracks directions
-      barracks.Directions.Add("west", hallway);
-      barracks.Directions.Add("south", courtyard);
       barracks.Directions.Add("north", capitansQuarters);
+      barracks.Directions.Add("south", courtyard);
+      barracks.Directions.Add("east", storeRoom);
+      barracks.Directions.Add("west", hallway);
 
       //Capitans Quarters directions
       capitansQuarters.Directions.Add("south", barracks);
@@ -109,24 +136,36 @@ namespace CastleGrimtol.Project
       //escape directions
       escape.Directions.Add("north", courtyard);
 
+      //Kitchen Directions
+      kitchen.Directions.Add("east", northHallway);
+
+      //Store Room Directions
+      storeRoom.Directions.Add("west", barracks);
+
 
       //Item Creation
       Item uniform = new Item("Guard Uniform", "Uniform of the castle Guards");
       Item brick = new Item("Brick", "It's a Brick");
       Item key = new Item("Heavy Key", "A black iron key, suspiciously heavy...");
       Item straw = new Item("Odd Bamboo Straw", "A bamboo straw that looks big enough to breath through...");
+      Item hammer = new Item("Masonry Hammer", "Large heavy hammer");
+      Item mushrooms = new Item("Scary Looking Mushrooms", "Long stems with small black spotted caps... Kind of look like the poisonous nighshadow mushrooms from the forest.");
 
       //barracks Items
       barracks.Items.Add(uniform);
 
       //courtyard items
       courtyard.Items.Add(brick);
+      courtyard.Items.Add(hammer);
 
       //capitans quarters items
       capitansQuarters.Items.Add(key);
 
       //Guard House Items
       guardHouse.Items.Add(straw);
+
+      //Dungeon Items
+      dungeon.Items.Add(mushrooms);
 
       return hallway;
     }

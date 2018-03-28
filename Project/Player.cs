@@ -13,7 +13,7 @@ namespace CastleGrimtol.Project
     public Player(string name, int score)
     {
       Name = name;
-      Score = score;
+      Score = 0;
       ActiveItem = "";
       Inventory = new List<Item>();
       HasStraw = false;

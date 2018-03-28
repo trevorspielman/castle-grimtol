@@ -26,7 +26,7 @@ namespace CastleGrimtol
         System.Console.WriteLine($@"
 You find yourself in a {currentGame.CurrentRoom.Name.ToUpper()}
 ************************************************************************************************************");
-System.Console.WriteLine(currentGame.CurrentRoom.Description);
+        System.Console.WriteLine(currentGame.CurrentRoom.Description);
         userComm = Console.ReadLine();
         //evaluating statement for proper action
         currentGame.CheckStatement(userComm);

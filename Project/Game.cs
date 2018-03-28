@@ -91,7 +91,7 @@ namespace CastleGrimtol.Project
 
       //Capitans Quarters directions
       capitansQuarters.Directions.Add("south", barracks);
-    
+
       //Guard House directions
       guardHouse.Directions.Add("west", dungeon);
       guardHouse.Directions.Add("east", hallway);
@@ -133,26 +133,34 @@ namespace CastleGrimtol.Project
 
     public void TakeItem()
     {
-        if(CurrentRoom.Items.Count > 0){
-
-
-      Console.WriteLine("Which Item?");
-      for (int i = 0; i < CurrentRoom.Items.Count; i++)
+      if (CurrentRoom.Items.Count > 0)
       {
-        System.Console.WriteLine($"{i + 1}. {CurrentRoom.Items[i].Name} | {CurrentRoom.Items[i].Description}");
-      }
-      int takenItem;
-      string tI = Console.ReadLine();
-      int.TryParse(tI, out takenItem);
-      CurrentPlayer.Inventory.Add(CurrentRoom.Items[takenItem - 1]);
-      System.Console.WriteLine($@"
+        Console.WriteLine("Which Item?");
+        for (int i = 0; i < CurrentRoom.Items.Count; i++)
+        {
+          System.Console.WriteLine($"{i + 1}. {CurrentRoom.Items[i].Name} | {CurrentRoom.Items[i].Description}");
+        }
+        int takenItem;
+        string tI = Console.ReadLine();
+        int.TryParse(tI, out takenItem);
+        if (takenItem > -1 && takenItem <= CurrentRoom.Items.Count)
+        {
+          CurrentPlayer.Inventory.Add(CurrentRoom.Items[takenItem - 1]);
+          System.Console.WriteLine($@"
       |+| You've added the {CurrentRoom.Items[takenItem - 1].Name} to your Inventory |+|");
-      CurrentRoom.Items.RemoveAt((takenItem - 1));
+          CurrentRoom.Items.RemoveAt((takenItem - 1));
         }
-        else{
-            System.Console.WriteLine(@"
+        else
+        {
+          System.Console.WriteLine(@"
+      |+| Please make a valid selection |+|");
+        }
+      }
+      else
+      {
+        System.Console.WriteLine(@"
       |+| There are No Items in this room. |+|");
-        }
+      }
     }
 
     public void UseItem(string itemName)
@@ -177,7 +185,7 @@ namespace CastleGrimtol.Project
     public static void Help()
     {
       Console.Clear();
-            System.Console.WriteLine(@"
+      System.Console.WriteLine(@"
 ************************************************************************************************************
 `direction`
 	- Moves your player from room to room.
@@ -241,7 +249,15 @@ _ 'reset'
           int chosenItem;
           string cI = Console.ReadLine();
           int.TryParse(cI, out chosenItem);
-          UseItem(CurrentPlayer.Inventory[chosenItem - 1].Name);
+          if (chosenItem > -1 && chosenItem <= CurrentPlayer.Inventory.Count)
+          {
+            UseItem(CurrentPlayer.Inventory[chosenItem - 1].Name);
+          }
+          else
+          {
+            System.Console.WriteLine(@"
+            |+| Please make a valid selection |+|");
+          }
           break;
         case "quit":
           System.Environment.Exit(1);

@@ -50,7 +50,9 @@ namespace CastleGrimtol.Project
       Quickly striding towards you he smirks at least I know have a sacrificial volunteer.
       Plunging his jewel encrusted dagger into your heart your world slowly fades away.
       ");
-      Room fountain = new Room("Fountain", "You dove into the fountain to escape the oncomming guards. However, there's one issue...");
+      Room fountain = new Room("Fountain", @"
+      You dove into the fountain to escape the oncomming guards.
+      Good thing you have your bamboo straw. You'd drown otherwise!!");
       Room capitansQuarters = new Room("Capitans Quarters", @"
       As you approach the captains Quarters you swallow hard and notice your lips are dry,
       Stepping into the room you see a few small tables and maps of the countryside sprawled out.
@@ -64,13 +66,16 @@ namespace CastleGrimtol.Project
       Your people can flee across the sea.
       Now is the time to rebuild and plot your revenge. Play again?");
       Room sewer = new Room("Sewer", "The sewer grate was actually a MIMIC... DOH!");
+      Room guardHouse = new Room("Guard House", @"
+      Pushing open the door of the guard room you look around and notice the room is empty.
+      There are a few small tools in the corner and a chair propped against the west wall near a door that likely leads to the dungeon.");
 
 
       //Hallway directions
       hallway.Directions.Add("north", throneRoom);
       hallway.Directions.Add("south", courtyard);
       hallway.Directions.Add("east", barracks);
-      hallway.Directions.Add("west", dungeon);
+      hallway.Directions.Add("west", guardHouse);
 
       //cortyard directions
       courtyard.Directions.Add("north", hallway);
@@ -86,16 +91,20 @@ namespace CastleGrimtol.Project
 
       //Capitans Quarters directions
       capitansQuarters.Directions.Add("south", barracks);
+    
+      //Guard House directions
+      guardHouse.Directions.Add("west", dungeon);
+      guardHouse.Directions.Add("east", hallway);
 
       //Dungeon directions
-      dungeon.Directions.Add("east", hallway);
+      dungeon.Directions.Add("east", guardHouse);
       dungeon.Directions.Add("south", sewer);
 
       //throne room directions
       throneRoom.Directions.Add("south", hallway);
 
       //fountain directions
-      fountain.Directions.Add("out", courtyard);
+      fountain.Directions.Add("north", courtyard);
 
       //escape directions
       escape.Directions.Add("north", courtyard);
@@ -105,6 +114,7 @@ namespace CastleGrimtol.Project
       Item uniform = new Item("Guard Uniform", "Uniform of the castle Guards");
       Item brick = new Item("Brick", "It's a Brick");
       Item key = new Item("Heavy Key", "A black iron key, suspiciously heavy...");
+      Item straw = new Item("Odd Bamboo Straw", "A bamboo straw that looks big enough to breath through...");
 
       //barracks Items
       barracks.Items.Add(uniform);
@@ -114,6 +124,9 @@ namespace CastleGrimtol.Project
 
       //capitans quarters items
       capitansQuarters.Items.Add(key);
+
+      //Guard House Items
+      guardHouse.Items.Add(straw);
 
       return hallway;
     }

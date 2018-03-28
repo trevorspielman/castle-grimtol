@@ -79,7 +79,7 @@ System.Console.WriteLine(currentGame.CurrentRoom.Description);
             |+| The guards take you as one of your own. They're heading back to the Barracks with you |+|");
           }
         }
-        if (currentGame.CurrentRoom.Name == "Fountain")
+        if (currentGame.CurrentRoom.Name == "Fountain" && currentGame.CurrentPlayer.ActiveItem != "Odd Bamboo Straw")
         {
           System.Console.WriteLine(@"
           |+| You forgot you can't swim. You die and the rescue Fails. Try again? (Y/N) |+|");

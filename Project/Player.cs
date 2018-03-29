@@ -19,6 +19,8 @@ namespace CastleGrimtol.Project
       HasStraw = false;
     }
 
+
+
     public void InventoryCheck()
     {
       for (int i = 0; i < this.Inventory.Count; i++)

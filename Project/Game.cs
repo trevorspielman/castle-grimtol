@@ -8,6 +8,8 @@ namespace CastleGrimtol.Project
     public Room CurrentRoom { get; set; }
     public Player CurrentPlayer { get; set; }
     public bool PrincessFree { get; set; }
+    public bool Poison { get; set; }
+    public bool Equipment { get; set; }
 
     // Constructor
     public Game()
@@ -15,9 +17,9 @@ namespace CastleGrimtol.Project
       CurrentRoom = SetupRooms();
       CurrentPlayer = SetupPlayer();
       PrincessFree = false;
+      Poison = false;
+      Equipment = false;
     }
-
-
 
     //Creating the Player
     public Player SetupPlayer()
@@ -85,7 +87,7 @@ namespace CastleGrimtol.Project
       It'd be a shame if all this nice equipment were broken...");
 
       Room kitchen = new Room("Kitchen", @"
-      Large castle kitche, the smells are amazing, but potentially you could 
+      Large castle kitchen, the smells are amazing, but potentially you could 
       poison it if only you had some poison...");
 
       Room northHallway = new Room("North Hallway", "Just more of the same ol' hallway...");
@@ -102,6 +104,8 @@ namespace CastleGrimtol.Project
       //North Hallway directions
       northHallway.Directions.Add("north", throneRoom);
       northHallway.Directions.Add("west", kitchen);
+      northHallway.Directions.Add("south", hallway);
+
 
       //cortyard directions
       courtyard.Directions.Add("north", hallway);
@@ -207,6 +211,29 @@ namespace CastleGrimtol.Project
       CurrentPlayer.ActiveItem = itemName;
       System.Console.WriteLine($@"
       |+| You've equipped the {CurrentPlayer.ActiveItem} |+|");
+      CurrentPlayer.Inventory.ForEach(i =>
+                {
+                  if (i.Name == itemName)
+                  {
+                    CurrentRoom.UseItem(i);
+                    if (itemName == "Scary Looking Mushrooms" && CurrentRoom.Name == "Kitchen" && !Poison)
+                    {
+                      Poison = true;
+                      CurrentPlayer.Score += 25;
+                    }
+                    else if (itemName == "Masonry Hammer" && CurrentRoom.Name == "Store Room" && !Equipment)
+                    {
+                      Equipment = true;
+                      CurrentPlayer.Score += 25;
+                    }
+                    else
+                    {
+                      System.Console.WriteLine(@"
+    |+| This item has no effect here. |+|
+        ");
+                    }
+                  }
+                });
     }
 
     public void Look()

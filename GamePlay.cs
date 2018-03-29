@@ -40,6 +40,7 @@ You find yourself in a {currentGame.CurrentRoom.Name.ToUpper()}
             if (i.Name == "Heavy Key")
             {
               currentGame.PrincessFree = true;
+              currentGame.CurrentPlayer.Score += 50;
             }
           });
           if (currentGame.PrincessFree)
@@ -81,9 +82,9 @@ You find yourself in a {currentGame.CurrentRoom.Name.ToUpper()}
             |+| The guards take you as one of your own. They're heading back to the Barracks with you |+|");
           }
         }
+        //Fountain Actions. Die or have straw to live
         if (currentGame.CurrentRoom.Name == "Fountain")
         {
-          currentGame.CurrentPlayer.StrawCheck();
           if (!currentGame.CurrentPlayer.HasStraw)
           {
             System.Console.WriteLine(@"
@@ -109,10 +110,18 @@ You find yourself in a {currentGame.CurrentRoom.Name.ToUpper()}
         }
         else if (currentGame.CurrentRoom.Name == "Escape" && currentGame.PrincessFree)
         {
+          if(currentGame.CurrentPlayer.Score > 75)
+          {
           Console.WriteLine(@"
+          You've Escaped with the Princess, and better yet you've dealt a major blow to the enemy!!!
+          Your people can flee across the sea. Now is the time to rebuild and plot your revenge. Play again? (Y/N)");
+          }
+          else if(currentGame.CurrentPlayer.Score < 75){
+          System.Console.WriteLine(@"
           You've Escaped, and better yet, you've done it with the princess!!
-          Your people can flee across the sea.
+          You missed your chance to strike a bigger blow, but your people can flee across the sea.
           Now is the time to rebuild and plot your revenge. Play again? (Y/N)");
+          }
           string again = Console.ReadLine();
           if (again[0] == 'n')
           {

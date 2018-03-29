@@ -18,7 +18,7 @@ namespace CastleGrimtol.Project
     }
 
 
-
+//Item usage that modifies a room rather than the player
     public void UseItem(Item item)
     {
       string itemName = item.Name;
@@ -50,6 +50,8 @@ namespace CastleGrimtol.Project
           break;
       }
     }
+
+    //gives you the additional information on a room if available.
     public void AdvancedLook(string roomName)
     {
       switch (roomName)

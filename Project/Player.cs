@@ -20,7 +20,7 @@ namespace CastleGrimtol.Project
     }
 
 
-
+//functionality for displaying the inventory.
     public void InventoryCheck()
     {
       for (int i = 0; i < this.Inventory.Count; i++)
@@ -29,6 +29,7 @@ namespace CastleGrimtol.Project
       }
     }
 
+//checking to see if the straw is in the inventory. If it is, you don't drown in the fountain
     public void StrawCheck()
     {
       Inventory.ForEach(i =>
@@ -39,6 +40,8 @@ namespace CastleGrimtol.Project
                   }
                 });
     }
+
+    //Assigning item to active item. Basically converting from an Item to a string.
     public string AssignItem()
     {
       System.Console.WriteLine("Which Item?");

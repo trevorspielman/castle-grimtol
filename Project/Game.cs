@@ -174,6 +174,7 @@ namespace CastleGrimtol.Project
       return hallway;
     }
 
+    //Take Item rules and variables
     public void TakeItem()
     {
       if (CurrentRoom.Items.Count > 0)
@@ -208,6 +209,7 @@ namespace CastleGrimtol.Project
       }
     }
 
+    //Use Player Item ruels. Also sending item to Room Model for room modifications
     public void UseItem(string itemName)
     {
       CurrentPlayer.ActiveItem = itemName;
@@ -238,6 +240,7 @@ namespace CastleGrimtol.Project
                 });
     }
 
+    //Look functionality
     public void Look()
     {
       Console.Clear();
@@ -283,7 +286,8 @@ _ 'reset'
       GamePlay newGame = new GamePlay();
       newGame.Start();
     }
-
+    
+    //Conditions for default commands: Help, reset, inventory
     public void CheckStatement(string userComm)
     {
       switch (userComm)

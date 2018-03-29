@@ -10,7 +10,6 @@ namespace CastleGrimtol
     string userComm;
     public void Start()
     {
-      //Conditions for default commands: Help, reset, inventory
       Console.Clear();
       System.Console.WriteLine(@"
           |+| Brave Young Warrior our forces are failing and the enemy grows stronger everyday.     |+| 
@@ -25,7 +24,6 @@ namespace CastleGrimtol
       {
         Console.ResetColor();
         Console.ForegroundColor = ConsoleColor.Yellow;
-        //Starting room
         System.Console.WriteLine($"|+| {currentGame.CurrentPlayer.Name} | Score: {currentGame.CurrentPlayer.Score} |+| ");
         Console.ResetColor();
         System.Console.WriteLine($@"
@@ -33,8 +31,10 @@ You find yourself in a {currentGame.CurrentRoom.Name.ToUpper()}
 ************************************************************************************************************");
         System.Console.WriteLine(currentGame.CurrentRoom.Description);
         userComm = Console.ReadLine();
+
         //evaluating statement for proper action
         currentGame.CheckStatement(userComm);
+
         //Rescuing the Princess
         if (currentGame.CurrentRoom.Name == "Dungeon")
         {
@@ -60,6 +60,7 @@ You find yourself in a {currentGame.CurrentRoom.Name.ToUpper()}
             Console.ResetColor();
           }
         }
+
         //Dying because you interrupted the sorcerer
         if (currentGame.CurrentRoom.Name == "Throne Room" || currentGame.CurrentRoom.Name == "Sewer")
         {
@@ -77,6 +78,7 @@ You find yourself in a {currentGame.CurrentRoom.Name.ToUpper()}
             currentGame.Reset();
           }
         }
+
         //Disguising yourself or dying in the fountain as you avoid the guards
         if (currentGame.CurrentRoom.Name == "Castle Courtyard")
         {
@@ -87,6 +89,7 @@ You find yourself in a {currentGame.CurrentRoom.Name.ToUpper()}
             |+| The guards take you as one of your own. They're heading back to the Barracks with you |+|");
           }
         }
+
         //Fountain Actions. Die or have straw to live
         if (currentGame.CurrentRoom.Name == "Fountain")
         {
@@ -106,6 +109,7 @@ You find yourself in a {currentGame.CurrentRoom.Name.ToUpper()}
             }
           }
         }
+
         //Win scenario
         if (currentGame.CurrentRoom.Name == "Escape" && !currentGame.PrincessFree)
         {

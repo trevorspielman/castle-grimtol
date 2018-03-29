@@ -195,8 +195,10 @@ namespace CastleGrimtol.Project
         }
         else
         {
+          System.Console.ForegroundColor = System.ConsoleColor.Red;
           System.Console.WriteLine(@"
       |+| Please make a valid selection |+|");
+          Console.ResetColor();
         }
       }
       else
@@ -239,11 +241,7 @@ namespace CastleGrimtol.Project
     public void Look()
     {
       Console.Clear();
-      if (CurrentRoom.Name == "Capitans Quarters")
-      {
-        Console.WriteLine(@"
-        |+| You look a little harder and find a KEY in a bottom desk drawer. This could come in handy! |+|");
-      }
+      CurrentRoom.AdvancedLook(CurrentRoom.Name);
       System.Console.WriteLine($"{CurrentRoom.Description}");
     }
 
@@ -315,8 +313,10 @@ _ 'reset'
         default:
           if (!CurrentRoom.Directions.ContainsKey(userComm))
           {
+            System.Console.ForegroundColor = System.ConsoleColor.Red;
             Console.WriteLine(@"
             |+| Wrong Way Dingus. Try again |+|");
+            Console.ResetColor();
             break;
           }
           Console.Clear();

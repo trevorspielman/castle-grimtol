@@ -55,8 +55,10 @@ namespace CastleGrimtol.Project
       }
       else
       {
+        System.Console.ForegroundColor = System.ConsoleColor.Red;
         System.Console.WriteLine(@"
             |+| Please make a valid selection |+|");
+        System.Console.ResetColor();
         return null;
       }
     }

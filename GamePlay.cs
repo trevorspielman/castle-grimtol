@@ -23,8 +23,11 @@ namespace CastleGrimtol
       bool playing = true;
       while (playing)
       {
+        Console.ResetColor();
+        Console.ForegroundColor = ConsoleColor.Yellow;
         //Starting room
         System.Console.WriteLine($"|+| {currentGame.CurrentPlayer.Name} | Score: {currentGame.CurrentPlayer.Score} |+| ");
+        Console.ResetColor();
         System.Console.WriteLine($@"
 You find yourself in a {currentGame.CurrentRoom.Name.ToUpper()}
 ************************************************************************************************************");
@@ -50,9 +53,11 @@ You find yourself in a {currentGame.CurrentRoom.Name.ToUpper()}
           }
           else
           {
+            System.Console.ForegroundColor = System.ConsoleColor.Green;
             Console.WriteLine(@"
             |+| You've found the princess, but you need a key to free her... Maybe look a little harder. |+|
             |+| Try looking in the room of someone of HIGH RANK.                                         |+|");
+            Console.ResetColor();
           }
         }
         //Dying because you interrupted the sorcerer
@@ -110,14 +115,15 @@ You find yourself in a {currentGame.CurrentRoom.Name.ToUpper()}
         }
         else if (currentGame.CurrentRoom.Name == "Escape" && currentGame.PrincessFree)
         {
-          if(currentGame.CurrentPlayer.Score > 75)
+          if (currentGame.CurrentPlayer.Score > 75)
           {
-          Console.WriteLine(@"
+            Console.WriteLine(@"
           You've Escaped with the Princess, and better yet you've dealt a major blow to the enemy!!!
           Your people can flee across the sea. Now is the time to rebuild and plot your revenge. Play again? (Y/N)");
           }
-          else if(currentGame.CurrentPlayer.Score < 75){
-          System.Console.WriteLine(@"
+          else if (currentGame.CurrentPlayer.Score < 75)
+          {
+            System.Console.WriteLine(@"
           You've Escaped, and better yet, you've done it with the princess!!
           You missed your chance to strike a bigger blow, but your people can flee across the sea.
           Now is the time to rebuild and plot your revenge. Play again? (Y/N)");
